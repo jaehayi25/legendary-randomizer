@@ -21,20 +21,21 @@ body {
     display: flex;
     width: 80%; 
     gap: 10px; 
-    margin-bottom: 80px;
+    margin-top: 30px; 
+    margin-bottom: 54px;
     justify-content: space-between;
 }
 
 .hero-img {
     margin-left: 40px;
-    height: 400px;
+    height: 360px;
     width: auto;
 }
 
 .hero-main {
     font-size: 48px;
     color: #F9FAF8; 
-    font-weight: 900; 
+    font-weight: 900;
 }
 
 .header-logo {
@@ -46,7 +47,7 @@ body {
     color: #E5E7EB;
 }
 
-.sign-up {
+.assemble {
     background-color: #3882F6;
     color: #F9FAF8;
     padding: 20px; 
@@ -60,13 +61,6 @@ body {
 
 .setup {
     margin-top: 32px; 
-}
-
-.topbar {
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 50px;
 }
 
 .container {
@@ -97,7 +91,7 @@ body {
 
 .image-block {
     width: 150px;
-    height: 240px;
+    height: 500px;
     display: flex;
     flex-direction: column;
 }
@@ -109,12 +103,13 @@ body {
 
 .image-block img {
     background-color: white;
+    /*
     border-color: #3882F6;
     border-style: solid;
     border-width: 3px;
-    height: 150px;
-    width: 150px;
-    border-radius: 10px;
+    */
+    object-fit: contain;
+    height: 200px;
 }
 
 .quote-block {

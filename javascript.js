@@ -20,22 +20,29 @@ villains = ["Brotherhood", "Enemies of Asgard", "HYDRA", "Masters of Evil", "Skr
 henchmen = ["Doombot Legion", "Hand Ninjas", "Savage Land Mutates", "Sentinel"]; 
 
 const heroImages = {
-    "Black Widow": "path/to/black_widow_image.jpg",
-    "Captain America": "path/to/captain_america_image.jpg",
-    "Cyclops": "path/to/cyclops_image.jpg",
-    "Deadpool": "path/to/deadpool_image.jpg",
-    "Emma Frost": "path/to/emma_frost_image.jpg",
-    "Gambit": "path/to/gambit_image.jpg",
-    "Hawkeye": "path/to/hawkeye_image.jpg",
-    "Hulk": "path/to/hulk_image.jpg",
-    "Iron Man": "path/to/iron_man_image.jpg",
-    "Nick Fury": "path/to/nick_fury_image.jpg",
-    "Rogue": "path/to/rogue_image.jpg",
-    "Spider-Man": "path/to/spiderman_image.jpg",
-    "Storm": "path/to/storm_image.jpg",
-    "Thor": "path/to/thor_image.jpg",
-    "Wolverine": "path/to/wolverine_image.jpg"
+    "Black Widow": "images/heroes/black-widow.jpg",
+    "Captain America": "images/heroes/captain-america.jpg",
+    "Cyclops": "images/heroes/cyclops.jpg",
+    "Deadpool": "images/heroes/deadpool.jpg",
+    "Emma Frost": "images/heroes/emma-frost.jpg",
+    "Gambit": "images/heroes/gambit.jpg",
+    "Hawkeye": "images/heroes/hawkeye.jpg",
+    "Hulk": "images/heroes/hulk.jpg",
+    "Iron Man": "images/heroes/iron-man.jpg",
+    "Nick Fury": "images/heroes/nick-fury.jpg",
+    "Rogue": "images/heroes/rogue.jpg",
+    "Spider-Man": "images/heroes/spider-man.jpg",
+    "Storm": "images/heroes/storm.jpg",
+    "Thor": "images/heroes/thor.jpg",
+    "Wolverine": "images/heroes/wolverine.jpg"
 };
+
+const mastermindImages = {
+    "Dr. Doom": "images/masterminds/dr-doom.jpg",
+    "Loki": "images/masterminds/loki.jpg",
+    "Magneto": "images/masterminds/magneto.jpg",
+    "Red Skull": "images/masterminds/red-skull.jpg",
+}
 
 function getRandomItem(array) {
     const randomIndex = Math.floor(Math.random() * array.length);
@@ -46,7 +53,9 @@ function setupGame() {
     /*
     returns mastermind, scheme, villains, and heroes
     */
-    /* complete card text: https://boardgamegeek.com/thread/1243890/complete-card-text-all-cards-through-dimensions */
+    /* complete card text: https://boardgamegeek.com/thread/1243890/complete-card-text-all-cards-through-dimensions 
+    // marvel image policy: https://marvel.fandom.com/wiki/Marvel_Database:Image_Policy#:~:text=Images%20created%20by%20Marvel%20contracted,policy%2C%20please%20notify%20an%20administrator.
+    // */
     const selectedHeroes = [];
     while (selectedHeroes.length < 5) {
         const hero = getRandomItem(heroes);
@@ -81,10 +90,51 @@ function setupGame() {
     };
 }
 
+function updateHeroInfo(selectedHeroes, mastermind) {
+    const imageBlocks = document.querySelectorAll('.image-row .image-block');
+
+    imageBlocks.forEach((block, index) => {
+        if (index == 5) {
+            const mmImage = block.querySelector('img');
+            const mmText = block.querySelector('div');
+            console.log(mastermind); 
+
+            if (mmImage && mastermindImages[mastermind]) {
+                mmImage.src = mastermindImages[mastermind];
+                mmImage.alt = mastermind; 
+            }
+
+            if (mmText) {
+                mmText.textContent = mastermind; 
+            }
+        }
+        else {
+            const hero = selectedHeroes[index];  
+        
+            const heroImage = block.querySelector('img');
+            const heroText = block.querySelector('div');
+            
+            if (heroImage && heroImages[hero]) {
+                heroImage.src = heroImages[hero];
+                heroImage.alt = hero; 
+            }
+    
+            if (heroText) {
+                heroText.textContent = hero;
+            }
+        }
+    });
+}
+
+
+
 const setupDisplay = document.querySelector(".setup");
 
 function Assemble() {
     let setup = setupGame(); 
+
+    updateHeroInfo(setup["Heroes"], setup["Mastermind"]); 
+
     setupStr = "";
     for (let key in setup) {
         let val = ""; 
@@ -99,7 +149,13 @@ function Assemble() {
     setupDisplay.innerHTML = setupStr.replace(/\n/g, "<br>"); 
 }
 
+
 Assemble(); 
+
+
+const assembleButton = document.querySelector(".assemble"); 
+
+assembleButton.addEventListener("click", () => Assemble())
 
 
 /*
